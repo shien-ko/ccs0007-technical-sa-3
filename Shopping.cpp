@@ -41,13 +41,25 @@ struct CustomerCart{	//Structure that will represent a customer cart. This struc
 		}
 	}
 
-	void viewCart(){	//Function for viewing the customer's cart
-		CustomerItems* temp = head;		//Create a temp node again for traversal
-		while(temp != NULL){	//As long as the node is not empty, print the contents.
-			std::cout << std::setw(15) << std::left << temp->cartItems.itemName << temp->cartItems.price << '\n';
-			temp = temp->next;	//Move on to the next node
-		}
-	}
+	void viewCart() {
+    CustomerItems* temp = head;
+
+    if (temp == NULL) {
+        std::cout << "Your cart is empty.\n";
+    } else {
+        std::cout << std::setw(30) << std::left << "Item Name" << std::setw(10) << "Price" << '\n';
+        std::cout << std::setfill('=') << std::setw(40) << "=" << std::setfill(' ') << '\n';
+
+        while (temp != NULL) {
+            std::cout << std::setw(30) << std::left << temp->cartItems.itemName << "$" << temp->cartItems.price << '\n';
+            temp = temp->next;
+        }
+
+        std::cout << std::setfill('=') << std::setw(40) << "=" << std::setfill(' ') << '\n';
+        std::cout << "Total: $" << std::fixed << std::setprecision(2) << computeTotal() << '\n';
+    }
+}
+
 
 	double computeTotal(){
 		double totalPrice;
@@ -82,9 +94,9 @@ int main(){
 	
 	do{
 		displayProducts(storeItems, numItems);
-		std::cout << "1 - Add item to cart\n"
-				  << "2 - View cart\n"
-				  << "3 - Check out\n"
+		std::cout << "[1] - Add item to cart\n"
+				  << "[2] - View cart\n"
+				  << "[3] - Check out\n"
 				  << "Enter option: ";
 		std::cin >> option;
 
@@ -115,13 +127,14 @@ void pressContinue(){
     std::cin.get();
 	system("cls");
 }
-void displayProducts(StoreItems* storeItems, int numItems){
-	for(int i = 0; i < numItems; i++){
-		std::cout << "Item #" << i + 1
-				  << ": " << std::setw(15) << std::left << storeItems[i].itemName 
-                  << " Price: " << storeItems[i].price << '\n';
-	}
-	std::cout << '\n';
+void displayProducts(StoreItems* storeItems, int numItems) {
+    std::cout << std::setw(4) << "Item # | " << std::setw(20) << std::left << "Item Name" << " | " << "Price\n";
+    std::cout << std::setfill('=') << std::setw(40) << "=" << std::setfill(' ') << '\n';
+
+    for (int i = 0; i < numItems; i++) {
+        std::cout << std::setw(4) << i + 1 << " | " << std::setw(20) << std::left << storeItems[i].itemName << " | " << storeItems[i].price << '\n';
+    }
+    std::cout << '\n';
 }
 void selectAdd(CustomerCart* cart, StoreItems* storeItems){
 	int itemNumber;
