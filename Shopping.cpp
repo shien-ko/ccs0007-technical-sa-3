@@ -12,7 +12,7 @@ struct StoreItems{	//This structure will contain information of store's products
 
 	StoreItems(int itemNum, std::string name, double cost): itemNumber(itemNum), itemName(name), price(cost){}
 												/*Another constructor, but needs arguments to input values. See figure 2*/
-};
+};a
 
 struct CustomerItems {	//This will be the node structure for the linked list of items 
 	StoreItems cartItems;	//Data value
